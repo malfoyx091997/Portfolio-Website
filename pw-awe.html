@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — Your Name</title>
+  <meta name="description" content="A modern single-file portfolio built with HTML, CSS and JavaScript." />
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --maxw:1100px;
+      color-scheme: dark;
+      color: #dbe7f0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#071022);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px}
+    .wrap{width:100%;max-width:var(--maxw)}
+
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;color:#032;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--accent)}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:10px 14px;border-radius:10px;cursor:pointer}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;margin-bottom:28px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:var(--radius);padding:26px;box-shadow:0 6px 30px rgba(2,6,23,0.6);}
+
+    h1{margin:0 0 8px;font-size:28px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+
+    .cta{display:flex;gap:12px}
+    .primary{background:linear-gradient(90deg,var(--accent),#60a5fa);border:none;color:#012; padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer}
+
+    .skills{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);font-weight:600}
+
+    .profile-card{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+    .avatar{width:140px;height:140px;border-radius:18px;background:linear-gradient(180deg,#0b1220, #0f2340);display:grid;place-items:center;font-size:48px;border:1px solid rgba(255,255,255,0.03)}
+    .stat-row{display:flex;gap:12px}
+    .stat{background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:10px}
+
+    /* Projects grid */
+    .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+    .project{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .project h3{margin:0 0 8px;font-size:16px}
+    .project p{margin:0;color:var(--muted);font-size:13px}
+
+    /* Contact */
+    form{display:grid;gap:10px}
+    input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:8px;color:inherit}
+    textarea{min-height:120px}
+
+    footer{margin-top:26px;color:var(--muted);text-align:center;padding:10px}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.8));z-index:60}
+    .modal.show{display:flex}
+    .modal-content{width:min(820px,95%);padding:20px;border-radius:12px;background:linear-gradient(180deg,#05102a,#0b1830)}
+
+    /* responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr}
+      .projects{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      body{padding:20px}
+      .projects{grid-template-columns:1fr}
+      nav{display:none}
+    }
+
+    /* micro animations */
+    .fade-in{animation:fade .6s ease both}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">YN</div>
+        <div>
+          <div style="font-weight:700">Your Name</div>
+          <div style="font-size:12px;color:var(--muted)">Frontend engineer • UI tinkerer</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <button class="btn" id="themeToggle" title="Toggle theme">Toggle</button>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card fade-in">
+        <h1>Hi — I’m Your Name</h1>
+        <p class="lead">I build delightful, accessible web interfaces with JavaScript. I focus on performance, component design, and polished UX.</p>
+
+        <div class="cta">
+          <button class="primary" onclick="location.href='#contact'">Work with me</button>
+          <button class="btn" onclick="copyEmail()">Copy email</button>
+        </div>
+
+        <h3 style="margin-top:22px">Skills</h3>
+        <div class="skills">
+          <span class="chip">JavaScript (ES6+)</span>
+          <span class="chip">HTML &amp; CSS</span>
+          <span class="chip">React</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">Accessibility</span>
+        </div>
+
+        <h3 style="margin-top:18px">Selected work</h3>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <div class="chip" onclick="openProject(0)">Project A</div>
+          <div class="chip" onclick="openProject(1)">Project B</div>
+          <div class="chip" onclick="openProject(2)">Project C</div>
+        </div>
+      </div>
+
+      <aside class="card profile-card fade-in">
+        <div class="avatar">YN</div>
+        <div style="font-weight:700">Your Name</div>
+        <div style="font-size:13px;color:var(--muted)">Based in City, Country</div>
+        <div class="stat-row">
+          <div class="stat"><div style="font-weight:700">5+</div><div style="font-size:12px;color:var(--muted)">Years</div></div>
+          <div class="stat"><div style="font-weight:700">20+</div><div style="font-size:12px;color:var(--muted)">Projects</div></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="projects" class="card fade-in">
+      <h2 style="margin-top:0">Projects</h2>
+      <p class="lead">A few things I’ve shipped recently. Click any card for details.</p>
+
+      <div class="projects" id="projectsGrid">
+        <!-- Projects injected by JS -->
+      </div>
+    </section>
+
+    <section id="about" class="card fade-in" style="margin-top:16px">
+      <h2>About</h2>
+      <p class="lead">I’m a frontend developer who loves turning design into fine-grained interactions. I enjoy optimizing load times, writing robust tests, and mentoring teammates.</p>
+    </section>
+
+    <section id="contact" class="card fade-in" style="margin-top:16px">
+      <h2>Contact</h2>
+      <p class="lead">Want to collaborate? Drop a message.</p>
+      <form onsubmit="event.preventDefault();submitForm()">
+        <input id="name" placeholder="Your name" required />
+        <input id="email" placeholder="Your email" type="email" required />
+        <textarea id="message" placeholder="Message" required></textarea>
+        <div style="display:flex;gap:8px">
+          <button class="primary" type="submit">Send</button>
+          <button class="btn" type="button" onclick="resetForm()">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <footer class="card">© <span id="year"></span> Your Name — Built with JavaScript</footer>
+  </div>
+
+  <!-- Modal for project details -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="btn" style="float:right" onclick="closeModal()">Close</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Data (replace with your real projects) ----------
+    const projects = [
+      {title:'Interactive Dashboard', tag:'React, D3', desc:'A realtime data dashboard with charts and exportable reports.'},
+      {title:'Design System', tag:'CSS, Accessibility', desc:'A reusable component library focused on accessibility and theming.'},
+      {title:'E‑commerce Flow', tag:'Vanilla JS', desc:'A performant single-page checkout flow with optimistic UI.'},
+      {title:'Portfolio Redesign', tag:'HTML/CSS', desc:'This very website \'— responsive, single-file, easy to customize.'},
+      {title:'Landing A/B', tag:'Experimentation', desc:'A/B tested landing pages that improved conversion.'},
+      {title:'Tooling — CLI', tag:'Node.js', desc:'An open-source CLI to scaffold projects.'}
+    ];
+
+    // ---------- Render projects ----------
+    const grid = document.getElementById('projectsGrid');
+    projects.forEach((p,i)=>{
+      const el = document.createElement('div');
+      el.className='project';
+      el.innerHTML = `\n        <h3>${p.title}</h3>\n        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">${p.tag}</div>\n        <p>${p.desc}</p>\n      `;
+      el.addEventListener('click',()=>openProject(i));
+      grid.appendChild(el);
+    });
+
+    // ---------- Modal logic ----------
+    function openProject(i){
+      const p = projects[i];
+      const md = document.getElementById('modalBody');
+      md.innerHTML = `<h2>${p.title}</h2><p style=\"color:var(--muted)\">${p.tag}</p><p>${p.desc}</p><p style=\"color:var(--muted);font-size:13px\">Tech: JavaScript, HTML, CSS</p>`;
+      document.getElementById('modal').classList.add('show');
+      document.body.style.overflow='hidden';
+    }
+    function closeModal(){
+      document.getElementById('modal').classList.remove('show');
+      document.body.style.overflow='auto';
+    }
+
+    // ---------- Theme toggle (simple inversion) ----------
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click',()=>{
+      const root = document.documentElement;
+      if(root.style.getPropertyValue('--bg') === ''){
+        // fallback - toggle an alternate palette
+      }
+      if(document.body.classList.contains('light')){
+        document.body.classList.remove('light');
+        document.documentElement.style.setProperty('--bg','#0f1724');
+        document.documentElement.style.setProperty('--card','#0b1220');
+        document.documentElement.style.setProperty('--muted','#9aa4b2');
+      } else {
+        document.body.classList.add('light');
+        document.documentElement.style.setProperty('--bg','#f6fbff');
+        document.documentElement.style.setProperty('--card','#ffffff');
+        document.documentElement.style.setProperty('--muted','#475569');
+      }
+    });
+
+    // ---------- Contact form (local simulation) ----------
+    function submitForm(){
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      // Replace this with a real form action / API call
+      alert(`Thanks ${name}! Message queued to ${email}. (This is a demo.)`);
+      resetForm();
+    }
+    function resetForm(){
+      document.getElementById('name').value='';
+      document.getElementById('email').value='';
+      document.getElementById('message').value='';
+    }
+
+    // ---------- Copy email helper ----------
+    function copyEmail(){
+      const email = 'you@example.com';
+      navigator.clipboard?.writeText(email).then(()=>{
+        alert('Email copied: '+email);
+      }).catch(()=>{
+        prompt('Copy this email', email);
+      });
+    }
+
+    // ---------- small helpers ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scrolling for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Keyboard: close modal with Escape
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+  </script>
+</body>
+</html>
